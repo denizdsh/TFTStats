@@ -33,3 +33,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PWA
+public/*.js.map
+public/workbox-*.js
+public/fallback-*.js
+public/sw.js
+public/cdragonTFT.
+public/data

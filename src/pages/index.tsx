@@ -1,9 +1,62 @@
+import { FormEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
+
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 const inter = Inter({ subsets: ['latin'] })
 
+
 export default function Home() {
+
+
+  return (
+    <article className='flex flex-col min-h-screen items-center justify-center gap-10 p-10 bg-slate-600'>
+
+      <Link href='./tftData'>
+        TFT Data
+      </Link>
+    </article>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Main = () => {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
