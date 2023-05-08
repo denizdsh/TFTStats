@@ -15,8 +15,8 @@ export const metadata: Metadata = {
         { rel: 'icon', type: 'image/png', sizes: '16x16', url: '/images/favicon-16x16.png' },
         { rel: 'mask-icon', url: '/images/apple-touch-icon.png' },
         { rel: 'apple-touch-icon', url: '/images/apple-touch-icon.png', sizes: '180x180' },
-        { rel: 'apple-touch-startup-image', url: '/images/icon-2048x2048.jpg', sizes: '2048x2048' },
         { rel: 'apple-touch-startup-image', url: '/images/icon-512x512.png', sizes: '512x512' },
+        { rel: 'apple-touch-startup-image', url: '/images/icon-2048x2048.jpg', sizes: '2048x2048' },
     ],
     themeColor: '#808281',
     formatDetection: { telephone: false, email: false, url: true },
@@ -25,20 +25,20 @@ export const metadata: Metadata = {
         title: config.APP_NAME,
         description: config.APP_DESCRIPTION,
         siteName: config.APP_NAME,
-        images: ['/images/apple-touch-icon.png'],
+        images: [`${config.APP_URL}/images/icon-2048x2048.jpg`],
         url: config.APP_URL
     },
     appleWebApp: {
         title: config.APP_NAME,
         capable: true,
         statusBarStyle: 'default',
-        startupImage: '/images/icon-2048x2048.jpg'
+        startupImage: `${config.APP_URL}/images/icon-2048x2048.jpg`
     },
     twitter: {
         card: 'summary',
         title: config.APP_NAME,
         description: config.APP_DESCRIPTION,
-        images: ['/images/icon-192x192']
+        images: [`${config.APP_URL}/images/icon-2048x2048.jpg`]
     },
 }
 
