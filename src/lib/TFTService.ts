@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 
 import { ICDragonTFTChampion, ICDragonTFT, ICDragonTFTTrait } from '@src/interfaces/cdragonTFT';
@@ -15,12 +15,12 @@ const tftFilePath = path.join(process.cwd(), config.DATA_DIRECTORY, cdragonTFTFi
 
 let tftFile: Readonly<ICDragonTFT>;
 
-function readTFTFile(): Readonly<ICDragonTFT> {
+async function readTFTFile(): Promise<Readonly<ICDragonTFT>> {
     if (Boolean(tftFile)) {
         return tftFile;
     }
 
-    const file = JSON.parse(fs.readFileSync(tftFilePath, 'utf8')) as ICDragonTFT;
+    const file = JSON.parse(await fs.readFile(tftFilePath, 'utf8')) as ICDragonTFT;
 
     console.log('file read');
 
@@ -29,27 +29,27 @@ function readTFTFile(): Readonly<ICDragonTFT> {
     return file;
 }
 
-export function getChamps(): Readonly<ICDragonTFTChampion[]> {
-    const file = readTFTFile();
+export async function getChamps(): Promise<Readonly<ICDragonTFTChampion[]>> {
+    const file = await readTFTFile();
 
     return file.champions;
 }
 
-export function getTraits(): Readonly<ICDragonTFTTrait[]> {
-    const file = readTFTFile();
+export async function getTraits(): Promise<Readonly<ICDragonTFTTrait[]>> {
+    const file = await readTFTFile();
 
     return file.traits;
 }
 
-export function getChampByName(name: string): Readonly<ITFTChampion> | null {
-    const champ = getChamps()
+export async function getChampByName(name: string): Promise<Readonly<ITFTChampion> | null> {
+    const champ = (await getChamps())
         .find((champ: ICDragonTFTChampion) => champ.name === name);
 
     if (!champ) {
         return null;
     }
 
-    const traits = getTraits()
+    const traits = (await getTraits())
         .filter((trait: ICDragonTFTTrait) => champ.traits.includes(trait.name));
 
     return { ...champ, traits };
