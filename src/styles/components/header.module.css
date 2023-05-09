@@ -1,0 +1,16 @@
+.logoTitle {
+    font-family: 'Bebas Neue', Roboto, 'Times New Roman', serif;
+    text-shadow: 1px 2px 0px var(--md-ref-palette-tertiary50);
+}
+
+.navLink {
+    transition: color 200ms ease-in-out;
+}
+
+.navLink:hover {
+    color: var(--md-sys-color-secondary);
+}
+
+.navLink:active, .navLink:focus, .activeNavLink {
+    color: var(--md-ref-palette-tertiary80);
+}

@@ -1,8 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-import { ICDragonTFTChampion, ICDragonTFT, ICDragonTFTTrait } from '@src/interfaces/cdragonTFT';
-import { ITFTChampion } from '@src/interfaces/generalTFT';
+import { ICDragonTFTChampion, ICDragonTFT, ICDragonTFTTrait } from '@interfaces/cdragonTFT';
+import { ITFTChampion } from '@interfaces/generalTFT';
 import config from '@src/config.mjs';
 
 const cdragonTFTFilename = config.CDRAGON_TFT_FILENAME

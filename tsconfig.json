@@ -21,6 +21,21 @@
     "paths": {
       "@src/*": [
         "./src/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@interfaces/*": [
+        "./src/interfaces/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
       ]
     },
     "plugins": [

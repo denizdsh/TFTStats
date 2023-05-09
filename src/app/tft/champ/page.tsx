@@ -1,4 +1,4 @@
-import { getChampByName } from "@src/lib/tftService";
+import { getChampByName } from "@lib/tftService";
 
 export default async function Champ() {
     const fiddlesticks = await getChampByName('Fiddlesticks');
