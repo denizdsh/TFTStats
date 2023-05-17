@@ -1,8 +1,11 @@
 import { Metadata } from 'next';
 
-import '@src/styles/globals.css'
+import '@styles/globals.css'
+import '@styles/core/theme.css'
+import styles from '@styles/mainLayout.module.css';
 import config from '@src/config.mjs';
-
+import Header from '@src/components/Header/Header';
+import { roboto } from '@src/fonts';
 
 export const metadata: Metadata = {
     title: config.APP_NAME,
@@ -18,7 +21,7 @@ export const metadata: Metadata = {
         { rel: 'apple-touch-startup-image', url: '/images/icon-512x512.png', sizes: '512x512' },
         { rel: 'apple-touch-startup-image', url: '/images/icon-2048x2048.jpg', sizes: '2048x2048' },
     ],
-    themeColor: '#808281',
+    themeColor: '#0E1D2D',
     formatDetection: { telephone: false, email: false, url: true },
     openGraph: {
         type: 'website',
@@ -49,15 +52,22 @@ export default function RootLayout({
     children: React.ReactNode,
 }) {
     return (
-        <html lang="en">
+        <html lang="en" className={roboto.className}>
             <head>
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=optional" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" /> */}
+                {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" /> */}
                 <meta name="mobile-web-app-capable" content="yes" />
-                <meta name="msapplication-TileColor" content="#2B5797" />
+                <meta name="msapplication-TileColor" content="#0E1D2D" />
                 <meta name="msapplication-tap-highlight" content="no" />
-
             </head>
-            <body>{children}</body>
+            <body className={`on-background-text min-h-screen bg-set-bg-color bg-set-bg bg-no-repeat ${styles.main}`}>
+                <Header />
+                <main className='max-w-screen-2xl m-auto p-5 min-h-screen background'>
+                    {children}
+                </main>
+            </body>
         </html>
     );
 }
@@ -69,7 +79,7 @@ export default function RootLayout({
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/touch-icon-iphone-retina.png" />
 <link rel="apple-touch-icon" sizes="167x167" href="/icons/touch-icon-ipad-retina.png" />
 
-<link rel="mask-icon" href="" color="#808281" />
+<link rel="mask-icon" href="" color="#0E1D2D" />
 
 <meta name="twitter:url" content="https://yourdomain.com" />
 <meta name="twitter:image" content="https://yourdomain.com/icons/android-chrome-192x192.png" />
