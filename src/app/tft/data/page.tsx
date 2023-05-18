@@ -9,9 +9,9 @@ export default async function TFTData() {
             <Link href='/tft/champ'>
                 Link to Fiddlesticks
             </Link>
-            <code>
+            <p>
                 {JSON.stringify(champs)}
-            </code>
+            </p>
         </>
     )
 }
