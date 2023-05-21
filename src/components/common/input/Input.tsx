@@ -17,7 +17,7 @@ export default function Input(props: IInputProps) {
                 {Prefix}
             </section>}
 
-            <input className={`body-medium background transition-all rounded-md w-full focus:body-large outline-none ${className}`}
+            <input className={`body-medium background transition-all rounded-md w-full focus:body-large outline-none ${className || ''}`}
                 type="text"
                 {...inputProps} />
 

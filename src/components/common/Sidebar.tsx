@@ -49,9 +49,8 @@ export default function Sidebar(props: ISidebarProps) {
     return (
         <>
             <aside ref={sidebarRef}
-                className={`z-50 w-64 bg-surface min-h-screen fixed top-0 ${pos}-0 transition-transform ${props.isOpen ? 'translate-x-0' : (pos === 'left' ? '-translate-x-full' : 'translate-x-full')} ${props.className}`}
-                style={{ right: pos === 'right' ? 0 : 'unset', left: pos === 'left' ? 0 : 'unset' }}>
-                <section className={`flex justify-${pos === 'left' ? 'start' : 'end'} p-2`}>
+                className={`z-50 w-64 bg-surface min-h-screen fixed top-0 ${pos === 'right' ? 'right-0' : 'left-0'} transition-transform ${props.isOpen ? 'translate-x-0' : (pos === 'left' ? '-translate-x-full' : 'translate-x-full')} ${props.className || ''}`}>
+                <section className={`p-2 flex ${pos === 'left' ? 'justify-start' : 'justify-end'}`}>
                     <Button onClick={props.close as MouseEventHandler}>
                         <FontAwesomeIcon icon={faX} />
                     </Button>

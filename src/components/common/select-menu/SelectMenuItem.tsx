@@ -11,7 +11,7 @@ export interface ISelectMenuItem {
 
 export default function SelectMenuItem(props: ISelectMenuItem & { onClick: Function }) {
     return (
-        <li onClick={() => props.onClick(props.value)} className={`body-medium w-full p-2 transition-colors hover:bg-secondary-container hover:text-on-secondary-container ${props.className}`}>
+        <li onClick={() => props.onClick(props.value)} className={`body-medium w-full p-2 transition-colors hover:bg-secondary-container hover:text-on-secondary-container ${props.className || ''}`}>
             {props.displayValue}
         </li>
     )
