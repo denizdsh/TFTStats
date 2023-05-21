@@ -2,12 +2,12 @@
 
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dispatch, ReactNode, useEffect, useRef } from "react";
+import { MouseEventHandler, ReactNode, useEffect, useRef } from "react";
 import Button from "./Button";
 
 interface ISidebarProps {
     isOpen: boolean,
-    setIsOpen: Dispatch<React.SetStateAction<boolean>>
+    close: Function,
     children?: ReactNode,
     hideCloseBtn?: boolean,
     hideBackgroundShadow?: boolean,
@@ -19,49 +19,76 @@ interface ISidebarProps {
 export default function Sidebar(props: ISidebarProps) {
     const sidebarRef = useRef<HTMLElement>(null);
 
-    useEffect(() => { // Prevent page from overflowing during sidebar animation
+    useEffect(() => { // close sidebar on click away 
         const sidebar = sidebarRef.current; // Use a variable to dodge warning
 
         if (!sidebar) {
             return;
         }
 
-        const transitionStart = () => {
-            document.body.style.overflowX = 'hidden';
+        const clickAwayHandler = (e: MouseEvent) => {
+            if (!props.isOpen
+                || !e.target
+                || (e.target instanceof HTMLElement && sidebar.contains(e.target))) {
+                return;
+            }
+
+            props.close(e)
         }
 
-        const transitionEnd = () => {
-            document.body.style.overflowX = 'auto';
-        }
-
-        sidebar.addEventListener('transitionstart', transitionStart);
-        sidebar.addEventListener('transitionend', transitionEnd);
+        window.addEventListener('click', clickAwayHandler);
 
         return () => {
-            sidebar.removeEventListener('transitionstart', transitionStart);
-            sidebar.removeEventListener('transitionend', transitionEnd);
+            window.removeEventListener('click', clickAwayHandler);
         }
+    }, [props, props.isOpen, props.close, sidebarRef])
 
-    }, [sidebarRef]);
 
-
-    const closeSidebar = () => props.setIsOpen(false);
+    const pos = props.position || 'right';
 
     return (
         <>
-            {props.isOpen && props.closeOnClickOutside &&
-                <div className={`${props.hideBackgroundShadow ? '' : 'bg-shadow/25 z-40'} fixed h-screen w-full top-0 left-0 `}
-                    onClick={closeSidebar} />}
-
-            <article ref={sidebarRef} className={`z-50 bg-surface min-h-screen top-0 ${props.position}-0 fixed transition-transform ${props.isOpen ? 'w-64 translate-x-0' : 'overflow-hidden max-w-0 w-0 translate-x-full'} ${props.className}`}>
-                <section className={`flex justify-${props.position === 'left' ? 'start' : 'end'} p-2`}>
-                    <Button onClick={closeSidebar}>
+            <aside ref={sidebarRef}
+                className={`z-50 w-64 bg-surface min-h-screen fixed top-0 ${pos}-0 transition-transform ${props.isOpen ? 'translate-x-0' : (pos === 'left' ? '-translate-x-full' : 'translate-x-full')} ${props.className}`}
+                style={{ right: pos === 'right' ? 0 : 'unset', left: pos === 'left' ? 0 : 'unset' }}>
+                <section className={`flex justify-${pos === 'left' ? 'start' : 'end'} p-2`}>
+                    <Button onClick={props.close as MouseEventHandler}>
                         <FontAwesomeIcon icon={faX} />
                     </Button>
                 </section>
                 {props.children}
-            </article>
-        </>
+            </aside>
 
+            {props.hideBackgroundShadow || <div className={`fixed top-0 left-0 z-40 w-full h-screen pointer-events-none transition-colors ${props.isOpen ? 'bg-shadow/20' : ''}`} />}
+        </>
     )
 }
+
+/*
+Effect for disabling scrollbar during sidebar entering the view
+NOT currently needed since body has a overflox-x: hidden in main layout 
+
+useEffect(() => { // Prevent page from overflowing during sidebar animation
+        const sidebar = sidebarRef.current; // Use a variable to dodge warning
+
+        if (!sidebar) {
+            return;
+        }
+        const transitionStartHandler = () => {
+            document.body.style.overflowX = 'hidden';
+        }
+
+        const transitionEndHandler = () => {
+            document.body.style.overflowX = 'auto';
+        }
+
+        sidebar.addEventListener('transitionstart', transitionStartHandler);
+        sidebar.addEventListener('transitionend', transitionEndHandler);
+
+        return () => {
+            sidebar.removeEventListener('transitionstart', transitionStartHandler);
+            sidebar.removeEventListener('transitionend', transitionEndHandler);
+        }
+
+    }, [sidebarRef]);
+*/

@@ -12,6 +12,12 @@ export const metadata: Metadata = {
     description: config.APP_DESCRIPTION,
     applicationName: config.APP_NAME,
     manifest: '/manifest.json',
+    viewport: {
+        height: 'device-height',
+        width: 'device-width',
+        initialScale: 1,
+        minimumScale: 1
+    },
     icons: [
         { rel: 'shortcut icon', url: '/images/favicon.ico' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', url: '/images/favicon-32x32.png' },
@@ -62,7 +68,7 @@ export default function RootLayout({
                 <meta name="msapplication-TileColor" content="#0E1D2D" />
                 <meta name="msapplication-tap-highlight" content="no" />
             </head>
-            <body className={`on-background-text min-h-screen bg-set-bg-color bg-set-bg bg-no-repeat ${styles.main}`}>
+            <body className={`on-background-text min-h-screen bg-set-bg-color bg-set-bg bg-no-repeat overflow-x-hidden ${styles.main}`}>
                 <Header />
                 <main className='max-w-screen-2xl m-auto p-5 min-h-screen background'>
                     {children}

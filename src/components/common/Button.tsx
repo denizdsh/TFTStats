@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from "react"
+import { MouseEventHandler, ReactNode, Ref, forwardRef } from "react"
 
 interface ButtonProps {
     children: ReactNode,
@@ -6,13 +6,13 @@ interface ButtonProps {
     className?: string
 }
 
-export default function Button(props: ButtonProps) {
+function Button(props: ButtonProps, ref: Ref<HTMLButtonElement>) {
     return (
-        <button className={`p-2 body-medium rounded-md select-none transition-all 
-            flex items-center gap-2
-            on-secondary secondary-text 
-        hover:bg-secondary-container hover:text-on-secondary-container leading-10 ${props.className}`} onClick={props.onClick}>
+        <button ref={ref} className={`p-2 body-medium rounded-md select-none transition-all flex items-center gap-2 on-secondary secondary-text 
+        hover:bg-secondary-container hover:text-on-secondary-container ${props.className}`} onClick={props.onClick}>
             {props.children}
         </button>
     )
 }
+
+export default forwardRef(Button);

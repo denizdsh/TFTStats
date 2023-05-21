@@ -31,7 +31,7 @@ export default function BaseNav(props: IBaseNavProps) {
 
     return (
         <nav className={`${props.hideOn}:hidden col-span-2`}>
-            <ul className={`list-none flex flex-${props.orientation} gap-10 ${props.containerClassName}`}>
+            <ul className={`list-none flex flex-${props.orientation} gap-10 md:max-lg:gap-5 ${props.containerClassName}`}>
                 {props.links.map(l =>
                     <li key={l.link} className='title-medium'>
                         <Link href={l.link} onClick={props.onLinkClick} className={`transition-colors hover:text-secondary active:text-tertiary80 focus:text-tertiary80 ${pathname === l.link ? 'text-tertiary' : ''} ${props.linkClassName}`}>
