@@ -8,6 +8,7 @@ const config = {
         ? 'https://tftstats.vercel.app'
         : 'http://localhost:3000',
     TFT_SET: 8,
+    isMidSet: true,
     LANG_TEMPLATE,
     CDRAGON_TFT_DEFAULT_LANGUAGE,
     CDRAGON_TFT_FILE_URL: `https://raw.communitydragon.org/latest/cdragon/tft/${CDRAGON_TFT_DEFAULT_LANGUAGE}.json`,

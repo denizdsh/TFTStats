@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 
 export default function Header() {
     return (
-        <header className="max-2xl:px-3 py-1 sticky top-0 bg-surface/[0.85] border-b-2 border-b-indigo-950 backdrop-blur-sm">
+        <header className="max-2xl:px-3 py-1 sticky z-10 top-0 bg-surface/[0.85] border-b-2 border-b-indigo-950 backdrop-blur-sm">
             <article className="max-w-screen-2xl m-auto grid grid-cols-5 items-center">
                 <section className="md:flex md:items-center lg:gap-10 md:gap-5 md:col-span-3">
                     <article>

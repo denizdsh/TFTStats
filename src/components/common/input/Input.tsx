@@ -1,23 +1,23 @@
 import { DetailedHTMLProps, InputHTMLAttributes, ReactNode } from "react";
 
 interface IInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-    Prefix: ReactNode,
-    Postfix: ReactNode,
-    containerStyle: string | undefined
+    Prefix?: ReactNode,
+    Postfix?: ReactNode,
+    containerStyle?: string | undefined
 }
 
 export default function Input(props: IInputProps) {
     const { Prefix, Postfix, className, containerStyle, ...inputProps } = props;
 
     return (
-        <article className={`background transition-all rounded-md w-2/3 border-indigo-950 border-2 
-        focus-within:border-tertiary flex items-center p-1 ${containerStyle}`}>
+        <article className={`group background transition-all rounded-md w-2/3 border-indigo-950 border-2 
+        focus-within:border-tertiary flex items-center p-1 ${containerStyle || ''}`}>
 
             {Prefix && <section className='mr-2'>
                 {Prefix}
             </section>}
 
-            <input className={`body-medium background transition-all rounded-md w-full focus:body-large outline-none ${className || ''}`}
+            <input className={`body-medium background transition-all rounded-md w-full focus:text-base outline-none ${Prefix ? '' : 'pl-2'} ${Postfix ? '' : 'pr-2'} ${className || ''}`}
                 type="text"
                 {...inputProps} />
 

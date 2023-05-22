@@ -18,6 +18,18 @@ module.exports = {
         'set-bg-color': 'rgba(14, 29, 45, 100)',
         'logo-bg': 'rgba(129, 128, 126, 100)',
 
+        // TFT
+        '1-cost': '#1E3040',
+        '1-cost-active': '#294254',
+        '2-cost': '#0B4226',
+        '2-cost-active': '#0D5C31',
+        '3-cost': '#0D3C55',
+        '3-cost-active': '#115276',
+        '4-cost': '#7A1A78',
+        '4-cost-active': '#A424A4',
+        '5-cost': '#78591B',
+        '5-cost-active': '#A47A27',
+
         // Material Design - dark theme colors
         primary: '#b1c6ff',
         'on-primary': '#002c70',

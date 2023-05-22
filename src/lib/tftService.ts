@@ -42,8 +42,10 @@ export async function getTraits(): Promise<Readonly<ICDragonTFTTrait[]>> {
 }
 
 export async function getChampByName(name: string): Promise<Readonly<ITFTChampion> | null> {
+    name = mapCharacterName(name)
+
     const champ = (await getChamps())
-        .find((champ: ICDragonTFTChampion) => champ.name === name);
+        .find((champ: ICDragonTFTChampion) => mapCharacterName(champ.name) === name);
 
     if (!champ) {
         return null;
@@ -53,4 +55,30 @@ export async function getChampByName(name: string): Promise<Readonly<ITFTChampio
         .filter((trait: ICDragonTFTTrait) => champ.traits.includes(trait.name));
 
     return { ...champ, traits };
+}
+
+export function getTFTImageURL(url: string, extension?: string): string {
+    if (!extension) {
+        extension = url.slice(url.lastIndexOf('.') + 1);
+    }
+
+    return `https://raw.communitydragon.org/latest/game/` + url.toLocaleLowerCase().replace(`.${extension}`, '.png');
+}
+/*
+export function getAbilityImageURL(url: string): string { // If using the CDragon CDN
+    const urlSegments = url.toLocaleLowerCase().split('/');
+
+    const character = urlSegments[urlSegments.indexOf('characters') + 1];
+    const ability = urlSegments
+        .at(-1)
+        ?.split('.')
+        .at(0)
+        ?.split('')
+        .findLast(char => ['q', 'w', 'e', 'r', 'passive'].includes(char));
+
+    return `https://cdn.communitydragon.org/latest/champion/${character}/ability-icon/${ability}`;
+}
+*/
+export function mapCharacterName(name: string): string {
+    return name.replaceAll(/[\s\d\'\%\&\.\:\_\-]+/g, '').toLocaleLowerCase();
 }
