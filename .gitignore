@@ -39,5 +39,8 @@ public/*.js.map
 public/workbox-*.js
 public/fallback-*.js
 public/sw.js
+
+# On-build generated files
 public/cdragonTFT.
 public/data/*
+public/images/champions/*

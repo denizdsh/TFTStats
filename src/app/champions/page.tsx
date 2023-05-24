@@ -12,10 +12,14 @@ import {
   getChamps,
   getTFTImageURL,
   getTraits,
-  mapCharacterName,
+  mapChampionName,
 } from "@src/lib/tftService";
 
+import goldCoinImage from "@images/gold-coin.png";
+import { IPlaiceholderImage, getImages } from "@src/lib/util";
+
 export default async function Champions() {
+  // Fetch Champoions
   const allChamps = await getChamps();
   const { champs, extraChamps } = allChamps.reduce(
     (champsObj, currentChamp) => {
@@ -42,7 +46,23 @@ export default async function Champions() {
     .sort((a, b) => a - b)
     .map((c) => c.toString());
 
+  // Fetch Traits
   const traits = await getTraits();
+
+  // Fetch Images
+  const images = (
+    await getImages("./public/images/champions/*.{jpg,png}")
+  ).reduce((acc: { [key: string]: IPlaiceholderImage }, image: IPlaiceholderImage) => {
+    const key =
+      image.img.src.split("/").at(-1)?.replace(".png", "") || // Champion name
+      image.img.src;
+
+    acc[key] = image;
+
+    return acc;
+  }, {});
+
+  // -----
 
   const getBorderClasses = (cost: number) => {
     switch (cost) {
@@ -99,14 +119,14 @@ export default async function Champions() {
             <FilterList
               title="Traits"
               queryName="traits"
-              queryValues={traits.map((t) => mapCharacterName(t.name))}
+              queryValues={traits.map((t) => mapChampionName(t.name))}
             >
               {traits.map((t) => (
                 <Filter
                   key={t.apiName}
                   content={t.name}
                   queryName="traits"
-                  queryContent={mapCharacterName(t.name)}
+                  queryContent={mapChampionName(t.name)}
                   imageWidth={30}
                   imageHeight={30}
                   imageSrc={getTFTImageURL(t.icon)}
@@ -128,7 +148,7 @@ export default async function Champions() {
                   queryContent={c}
                   imageWidth={16}
                   imageHeight={16}
-                  imageSrc="/images/gold-coin.png"
+                  imageSrc={goldCoinImage}
                   imageAlt={`Gold Icon`}
                 />
               ))}
@@ -147,6 +167,7 @@ export default async function Champions() {
               <ChampionCard
                 key={c.name}
                 c={c}
+                image={images[mapChampionName(c.name)]}
                 border={borderClasses.border}
                 borderActive={borderClasses.borderActive}
               />
@@ -165,6 +186,7 @@ export default async function Champions() {
             <ChampionCard
               key={c.name}
               c={c}
+              image={images[mapChampionName(c.name)]}
               border={extraChampsBorderClasses.border}
               borderActive={extraChampsBorderClasses.borderActive}
             />

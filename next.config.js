@@ -8,7 +8,7 @@ const withPWA = require('next-pwa')({
   dest: 'public',
   disable: isDev,
   register: true,
-  buildExcludes: ["app-build-manifest.json"],
+  buildExcludes: isDev ? [] : ["app-build-manifest.json"],
 })
 
 
@@ -47,6 +47,10 @@ const nextConfig = {
     ]
   },
   webpack: (config) => {
+    if (isDev) {
+      return config;
+    }
+
     const entry = generateAppDirEntry(config.entry);
     config.entry = () => entry;
 

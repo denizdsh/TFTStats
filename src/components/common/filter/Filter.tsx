@@ -1,13 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { bebasNeue } from "@src/fonts";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IFilterProps {
   imageHeight?: number;
   imageWidth?: number;
-  imageSrc: string;
+  imageSrc: string | StaticImageData;
+  imageBlurUrl?: string;
   imageAlt: string;
   content: string;
   queryName: string;

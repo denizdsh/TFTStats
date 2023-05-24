@@ -4,23 +4,28 @@ import { ICDragonTFTChampion } from "@src/interfaces/cdragonTFT";
 import {
   getTFTImageURL,
   getTraits,
-  mapCharacterName,
+  mapChampionName,
 } from "@src/lib/tftService";
+
+import goldCoinImage from "@images/gold-coin.png";
+import { IPlaiceholderImage } from "@src/lib/util";
 
 export default async function ChampionCard({
   c,
   border,
   borderActive,
+  image,
 }: {
   c: ICDragonTFTChampion;
   border: string;
   borderActive: string;
+  image: IPlaiceholderImage;
 }) {
   const traits = (await getTraits()).filter((t) => c.traits.includes(t.name));
 
   return (
     <li key={c.name} className="max-sm:flex-grow-[1]">
-      <Link href={`/champions/${mapCharacterName(c.name)}`}>
+      <Link href={`/champions/${mapChampionName(c.name)}`}>
         <article
           className={`transition-colors ${border} overflow-auto rounded-md border-2 ${borderActive}`}
         >
@@ -29,7 +34,9 @@ export default async function ChampionCard({
               width={202}
               height={101}
               quality={100}
-              src={getTFTImageURL(c.icon, "dds")}
+              src={image.img.src}
+              placeholder="blur"
+              blurDataURL={image.base64}
               alt={`${c.name}'s Icon`}
               className="max-md:w-full"
             />
@@ -40,12 +47,7 @@ export default async function ChampionCard({
 
               <article className="flex items-center gap-1">
                 <p className="body-small">{c.cost}</p>
-                <Image
-                  height={12}
-                  width={12}
-                  src="/images/gold-coin.png"
-                  alt="Cost"
-                />
+                <Image height={12} width={12} src={goldCoinImage} alt="Cost" />
               </article>
             </section>
             {traits.length > 0 && (
